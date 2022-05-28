@@ -279,6 +279,9 @@ const typeDefs = gql `
   type Query {
     hello: [String!]!
     products: [Product!]!
+    product(id: ID!): Product
+    categories: [Category!]!
+    category(id: ID!): Category
   }
 
   type Product {
@@ -287,6 +290,11 @@ const typeDefs = gql `
     quantity: Int!
     price: Float!
     onSale: Boolean
+    image: String!
+  }
+  type Category {
+    id: ID!
+    name: String!
   }
 `;
 
@@ -297,6 +305,17 @@ const resolvers = {
         },
         products: () => {
             return products;
+        },
+        product: (parent, args, context) => {
+            const { id } = args;
+            return products.find((el) => el.id === id);
+        },
+        categories: () => {
+            return categories;
+        },
+        category: (parent, args, context) => {
+            const { id } = args;
+            return categories.find((el) => el.id === id);
         },
     },
 };
