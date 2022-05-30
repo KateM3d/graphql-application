@@ -301,6 +301,7 @@ const typeDefs = gql `
     onSale: Boolean
     image: String!
     categoryId: String!
+    category: Category
   }
   type Category {
     id: ID!
@@ -333,6 +334,12 @@ const resolvers = {
         products: (parent, args, context) => {
             const categoryId = parent.id;
             return products.filter((el) => el.categoryId === categoryId);
+        },
+    },
+    Product: {
+        category: (parent, args, context) => {
+            const categoryId = parent.categoryId;
+            return categories.find((el) => el.id === categoryId);
         },
     },
 };
