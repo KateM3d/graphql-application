@@ -1,17 +1,15 @@
 exports.Query = {
-    hello: () => {
-        return ["hello"];
-    },
+    hello: (parent, args, context) => "hello",
     products: (parent, { filter }, { products }) => {
         let filteredProducts = products;
         if (filter) {
             if (filter.onSale === true) {
-                filteredProducts = filteredProducts.filter.filter((el) => {
+                filteredProducts = filteredProducts.filter((el) => {
                     return el.onSale;
                 });
             }
         }
-        return products;
+        return filteredProducts;
     },
     product: (parent, { id }, { products }) => {
         return products.find((el) => el.id === id);
