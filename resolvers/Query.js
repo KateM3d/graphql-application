@@ -1,21 +1,25 @@
-const { categories, products } = require("../db");
-
 exports.Query = {
     hello: () => {
         return ["hello"];
     },
-    products: () => {
+    products: (parent, { filter }, { products }) => {
+        let filteredProducts = products;
+        if (filter) {
+            if (filter.onSale === true) {
+                filteredProducts = filteredProducts.filter.filter((el) => {
+                    return el.onSale;
+                });
+            }
+        }
         return products;
     },
-    product: (parent, args, context) => {
-        const { id } = args;
+    product: (parent, { id }, { products }) => {
         return products.find((el) => el.id === id);
     },
-    categories: () => {
+    categories: (parent, args, { categories }) => {
         return categories;
     },
-    category: (parent, args, context) => {
-        const { id } = args;
+    category: (parent, { id }, { categories }) => {
         return categories.find((el) => el.id === id);
     },
 };
