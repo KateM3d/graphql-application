@@ -1,7 +1,6 @@
 const { reviews } = require("../db");
 
 exports.Query = {
-    hello: (parent, args, context) => "hello",
     products: (parent, { filter }, { products }) => {
         let filteredProducts = products;
         if (filter) {
