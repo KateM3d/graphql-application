@@ -72,4 +72,10 @@ exports.Mutation = {
         db.reviews = db.reviews.filter((el) => el.id !== id);
         return true;
     },
+
+    updateCategory: (parent, { id, input }, { db }) => {
+        const index = db.categories.findIndex((el) => el.id === id);
+        db.categories[index] = {...db.categories[index], ...input };
+        return db.categories[index];
+    },
 };
