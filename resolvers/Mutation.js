@@ -46,6 +46,7 @@ exports.Mutation = {
 
         return newReview;
     },
+
     deleteCategory: (parent, { id }, { db }) => {
         db.categories = db.categories.filter((el) => el.id !== id);
         db.products = db.products.map((el) => {
@@ -55,6 +56,14 @@ exports.Mutation = {
                     categoryId: null,
                 };
             else return el;
+        });
+        return true;
+    },
+
+    deleteProduct: (parent, { id }, { db }) => {
+        db.products = db.products.filter((el) => el.id !== id);
+        db.reviews = db.reviews.filter((el) => {
+            el.id !== id;
         });
         return true;
     },
