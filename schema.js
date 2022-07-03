@@ -18,6 +18,7 @@ exports.typeDefs = gql `
   }
 
   type Product {
+    id: String!
     name: String!
     description: String!
     quantity: Int!
