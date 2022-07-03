@@ -1,8 +1,9 @@
-const { reviews } = require("../db");
+const { db } = require("../db");
 
 exports.Query = {
-    products: (parent, { filter }, { products }) => {
-        let filteredProducts = products;
+    products: (parent, { filter }, { db }) => {
+        let filteredProducts = db.products;
+        console.log(filteredProducts);
         if (filter) {
             const { onSale, avgRating } = filter;
             if (onSale === true) {
@@ -27,13 +28,13 @@ exports.Query = {
         }
         return filteredProducts;
     },
-    product: (parent, { id }, { products }) => {
-        return products.find((el) => el.id === id);
+    product: (parent, { id }, { db }) => {
+        return db.products.find((el) => el.id === id);
     },
-    categories: (parent, args, { categories }) => {
-        return categories;
+    categories: (parent, args, { db }) => {
+        return db.categories;
     },
-    category: (parent, { id }, { categories }) => {
-        return categories.find((el) => el.id === id);
+    category: (parent, { id }, { db }) => {
+        return db.categories.find((el) => el.id === id);
     },
 };

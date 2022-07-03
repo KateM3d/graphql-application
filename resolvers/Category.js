@@ -1,12 +1,12 @@
-const { categories } = require("../db");
+const { db } = require("../db");
 
 exports.Category = {
-    products: ({ id: categoryId }, { filter }, { products }) => {
-        const categoryProducts = products.filter(
+    products: ({ id: categoryId }, { filter }, { db }) => {
+        const categoryProducts = db.products.filter(
             (el) => el.categoryId === categoryId
         );
         let filteredCategoryProducts = categoryProducts;
-        const { onSale, avgRating } = categories;
+        const { onSale, avgRating } = db.categories;
         if (filter) {
             if (onSale === true) {
                 filteredCategoryProducts = filteredCategoryProducts.filter((el) => {
@@ -18,7 +18,7 @@ exports.Category = {
             filteredProducts = filteredProducts.filter((el) => {
                 let sumRating = 0;
                 let numberOfReviews = 0;
-                reviews.forEach((review) => {
+                db.reviews.forEach((review) => {
                     if (review.productId === el.id) {
                         sumRating += review.rating;
                         numberOfReviews++;
